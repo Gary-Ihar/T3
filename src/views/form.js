@@ -4,8 +4,8 @@ import { color } from "../assets/theme/color";
 import { Text } from "../assets/theme/styled-components";
 
 const FormStyle = styled.div`
-  width: "100%";
-  max-width: "225px";
+  width: 100%;
+  max-width: 225px;
 
   p:nth-child(1) {
     margin-bottom: 5px;

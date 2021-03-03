@@ -15,6 +15,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 225px 1fr ;
   grid-column-gap: 40px;
+  padding-top: 64px;
 `;
 
 const App = () => {

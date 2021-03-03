@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { color } from "../assets/theme/color";
 import { Text } from "../assets/theme/styled-components";
+import { observer } from "mobx-react";
+import { productsStore } from "../store/product-store";
 
 const FormStyle = styled.div`
   width: 100%;
@@ -18,11 +20,11 @@ const FormStyle = styled.div`
   }
 `;
 
-const Form = () => {
+const Form = observer(() => {
   return (
     <FormStyle>
       <Text color={color.helper_text} size="14px">
-        Товаров {/*TODO: Притянуть сюда цифру о кол-ве товаров.*/}
+        Товаров {productsStore.store.products.length}
       </Text>
       <Text color={color.header_text} size="32px" bold>
         Камеры
@@ -37,6 +39,6 @@ const Form = () => {
       {/* TODO: Нарисовать много инпутов с фильтрами. */}
     </FormStyle>
   );
-};
+});
 
 export default Form;

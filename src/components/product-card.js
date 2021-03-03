@@ -14,7 +14,7 @@ const CardStyle = styled.div`
     border-radius: 4px;
 `
 
-const ProductCard = () => {
+const ProductCard = ({data}) => {
     return (
         <CardStyle width={productCardWidth} bColor={color.border_product_card_color}>
             <Image imgName='foto' height='242'/>

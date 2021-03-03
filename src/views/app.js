@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Form from "./form";
+import Products from "./products";
 import "../assets/css/index.css";
 // TODO: До сих пор нет норм способа подключить шрифты в приложение с styled-components.
 // Сами авторы просят использовать font-display: fallback https://styled-components.com/docs/faqs#how-do-i-fix-flickering-text-after-server-side-rendering
@@ -22,6 +23,7 @@ const App = () => {
   return (
     <Container>
       <Form />
+      <Products />
     </Container>
   );
 };

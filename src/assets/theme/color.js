@@ -5,4 +5,5 @@ export const color = {
     border_product_card_color: '#E6E6E6',
     border_button_color: '#DBDBDB',
     main_text: '#1B1B1B',
+    new_product_bg_color: '#44C477',
 }

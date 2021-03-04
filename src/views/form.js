@@ -23,7 +23,7 @@ const Form = observer(() => {
       Но прикрутить это к текущей реализации будет муторно.
       Я пока еще испытываю проблемы, чтобы со старта спроектировать всю систему. Наверное это недостаток опыта. Но я постоянно чет читаю, подсматриваю и т.д. :) */}
       {/* TODO: Также я не понял откуда берутся два чекбокса с "Новинка" и "Акция". Добавить это не трудно. Нужно пересобрать метод filterProducts() в сторе. Но куда добавить эти кнопки... */}
-      <Text color={color.header_text} size="16px" bold className='brand-header'>
+      <Text color={color.header_text} size="16px" bold className="brand-header">
         Бренд
       </Text>
       {productsStore.store.filter.length > 0 &&

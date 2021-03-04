@@ -1,13 +1,13 @@
 @font-face {
-    font-family: "Montserrat";
-    font-weight: 500;
-    src: url('../fonts/Montserrat-Light.ttf');
-    font-style: normal;
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../fonts/Montserrat-Light.ttf");
+  font-style: normal;
 }
 @font-face {
-    font-family: "Montserrat";
-    font-weight: 700;
-    src: url('../fonts/Montserrat-ExtraBold.ttf');
-    font-style: normal;
+  font-family: "Montserrat";
+  font-weight: 700;
+  src: url("../fonts/Montserrat-ExtraBold.ttf");
+  font-style: normal;
 }
 /* TODO: Я не завез все шрифты. Чет с заголовком не как по макету. Ну я смогу это сделать, не тяжело же:) ДУмаю, я показал, что умею их подключать */

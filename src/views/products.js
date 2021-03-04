@@ -27,6 +27,7 @@ const Container = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(${productCardWidth}px, 1fr));
   grid-gap: 24px;
   @media screen and (max-width: 578px) {
+    grid-template-columns: 1fr;
     grid-gap: 0px;
   }
 `;

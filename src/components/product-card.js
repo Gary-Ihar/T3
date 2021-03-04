@@ -98,6 +98,7 @@ const CardStyle = styled.div`
 `;
 const Content = styled.div`
   padding: 12px 16px 16px;
+  width: 100%;
   @media screen and (max-width: 578px) {
     padding: 0 0 0 16px;
   }

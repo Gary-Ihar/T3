@@ -4,6 +4,7 @@ import { color } from "../assets/theme/color";
 import { Text } from "../assets/theme/styled-components";
 import { observer } from "mobx-react";
 import { productsStore } from "../store/product-store";
+import FilterInput from "../components/filter-input";
 
 const FormStyle = styled.div`
   width: 100%;
@@ -36,7 +37,8 @@ const Form = observer(() => {
       <Text color={color.header_text} size="16px" bold>
         Бренд
       </Text>
-      {/* TODO: Нарисовать много инпутов с фильтрами. */}
+      {productsStore.store.filter.length > 0 &&
+        productsStore.store.filter.map((param) => <FilterInput key={param.value} title={param.title}/>)}
     </FormStyle>
   );
 });

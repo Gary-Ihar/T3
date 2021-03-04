@@ -8,7 +8,8 @@ class Products {
         products: [],
         filter: [],
     }
-    filter = []
+    filteredProducts = []
+    filterParams = []
     isLoad = false
     constructor(){
         makeAutoObservable(this) 
@@ -26,6 +27,35 @@ class Products {
         } 
     }
 
+    filterParam(param, checked){
+        if(checked) {
+            this.filterParams = [...this.filterParams, param]
+        } else {
+            const editFilter = this.filterParams.filter(prm=>prm !== param) 
+            this.filterParams = editFilter
+        }
+        this.filterProducts()
+    }
+
+    filterProducts(){
+        if (this.filterParams.length === 0) {
+            this.filteredProducts = this.store.products
+        } else {
+            const filtered = this.store.products.filter((product) => {
+                const title = product.title.split(' ').splice(0,2).join(' ').toLowerCase()
+                return this.filterParams.includes(title)
+            })
+            this.filteredProducts = filtered
+        }
+    }
+
+    getProducts() {
+        if (this.filteredProducts.length > 0) {
+            return this.filteredProducts
+        } else {
+            return this.store.products
+        }
+    }
 }
 
 export const productsStore = new Products()

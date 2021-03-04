@@ -41,7 +41,13 @@ const Form = observer(() => {
         Бренд
       </Text>
       {productsStore.store.filter.length > 0 &&
-        productsStore.store.filter.map((param) => <FilterInput key={param.value} title={param.title}/>)}
+        productsStore.store.filter.map((param, i) => (
+          <FilterInput
+            key={param.value}
+            title={param.title}
+            idGoods={`Товар ${i + 1}`}
+          />
+        ))}
     </FormStyle>
   );
 });

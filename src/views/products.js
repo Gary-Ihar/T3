@@ -20,8 +20,7 @@ const Products = observer(() => {
 
   return (
     <Container>
-      {productsStore.store.products.length > 0 &&
-        productsStore.store.products.map((product) => <ProductCard key={product.id} data={product}/>)}
+      {productsStore.getProducts().map((product) => <ProductCard key={product.id} data={product}/>)}
     </Container>
   );
 });

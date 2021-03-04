@@ -107,4 +107,3 @@ const PayButton = styled.button`
     cursor: pointer;
     outline: none;
 `
-    console.log(data);

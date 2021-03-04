@@ -25,9 +25,46 @@ const CardStyle = styled.div`
         align-items: center;
         margin-bottom: 18px;
     }
+    @media screen and (max-width: 578px){
+        flex-direction: row;
+        padding: 20px 0;
+        border: none;
+        border-bottom: 1px solid ${({bColor})=>bColor};
+        overflow: visible;
+        border-radius: 0px;
+        & > img {
+            width: 124px;
+            height: 124px;
+            border-radius: 4px;
+        }
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            right: -20px;
+            background: ${({bColor})=>bColor};
+            width: 20px;
+            height: 1px;
+        }
+        &:before {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: -20px;
+            background: ${({bColor})=>bColor};
+            width: 20px;
+            height: 1px;
+        }
+        .title {
+            height: 39px;
+        }
+    }
 `
 const Content = styled.div`
     padding: 12px 16px 16px;
+    @media screen and (max-width: 578px){
+        padding: 0 0 0 16px;
+    }
 `
 const IsNew = styled.div`
     position: absolute;
@@ -36,6 +73,10 @@ const IsNew = styled.div`
     background-color: ${({BGColor})=>BGColor || color.new_product_bg_color};
     padding: 6px 10px;
     border-radius: 26px;
+    @media screen and (max-width: 578px){
+        top: 26px;
+        left: 6px;
+    }
 `
 
 const PayButton = styled.button`

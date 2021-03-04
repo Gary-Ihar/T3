@@ -10,6 +10,9 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(${productCardWidth}px, 1fr));
   grid-gap: 24px;
+  @media screen and (max-width: 578px){
+    grid-gap: 0px;
+  }
 `;
 
 const Products = observer(() => {

@@ -12,11 +12,20 @@ import "../assets/css/index.css";
 const Container = styled.div`
   margin: 0 auto;
   width: 100%;
-  max-width: 1300px;
+  max-width: 1340px;
+  padding: 0 20px;
   display: grid;
   grid-template-columns: 225px 1fr ;
   grid-column-gap: 40px;
   padding-top: 64px;
+  @media screen and (max-width: 578px){
+    display: flex;
+    flex-direction: column;
+    padding-top: 47px;
+    & > div:first-child{
+      margin-bottom: 48px;
+    }
+  }
 `;
 
 const App = () => {

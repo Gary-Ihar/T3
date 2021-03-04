@@ -10,13 +10,16 @@ const FormStyle = styled.div`
   width: 100%;
   max-width: 225px;
 
-  p:nth-child(1) {
+  & > p:nth-child(1) {
     margin-bottom: 5px;
   }
-  p:nth-child(2) {
+  & > p:nth-child(2) {
     margin-bottom: 13px;
   }
-  p:nth-child(3) {
+  & > p:nth-child(3) {
+    margin-bottom: 13px;
+  }
+  .brand-header {
     margin-bottom: 13px;
   }
 `;
@@ -34,7 +37,7 @@ const Form = observer(() => {
         Цена, ₽
       </Text>
       {/* TODO: Тут чет с ценами магию сотворить. */}
-      <Text color={color.header_text} size="16px" bold>
+      <Text color={color.header_text} size="16px" bold className='brand-header'>
         Бренд
       </Text>
       {productsStore.store.filter.length > 0 &&

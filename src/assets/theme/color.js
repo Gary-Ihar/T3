@@ -7,3 +7,4 @@ export const color = {
     main_text: '#1B1B1B',
     new_product_bg_color: '#44C477',
 }
+// TODO: нейминг переменных моя беда, но я стараюсь! :)

@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const URL = 'https://getlens-master.stage.dev.family/api/pages/kamery'
 
+//TODO: Стор скорее всего - кракозябра. Но я учусь! :)
 class Products {
     store = {
         products: [],

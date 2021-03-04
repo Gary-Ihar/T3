@@ -15,8 +15,8 @@ const ProductCard = ({data}) => {
                 <div className='price-section'>
                     <Text size="16px" bold>{data.price.slice(0, -3)} ₽</Text>{/* TODO: У меня не остается времени поставить пробел между цифрами. В этом ниче сложного, я на словах могу накидать как это сделать.
                         Я бы завел хелпер функцию и через нее пропускал бы занчение helper(data.price)*/}
-                    {data.is_second_hand && <Text size='11px'>Новое</Text>}
-                </div>
+                    {data.is_second_hand && <Text size='11px'>Новое</Text>} { /*TODO: Я не уверен, от чего зависит это */}
+                </div>{ /*TODO: Тут есть сердечко, я не понял логику его появления. Избранное? Но оно не у всех есть... */}
                 <PayButton borderColor={color.border_button_color}>В корзину</PayButton>
             </Content>
         </CardStyle>

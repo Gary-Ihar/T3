@@ -1,3 +1,11 @@
+### Смотри TODO
+
+Все свои замечания себе я выложил в самом коде формата TODO: ..... . Буду рад выслушать Ваши замечания! :)
+
+### Время
+
+6ч. Давно не верстал :) ну и со styled-components я ток знакомлюсь. Поэтому некоторые моменты иногда заставляют почитать доку.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +76,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+

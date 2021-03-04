@@ -4,15 +4,6 @@ import { color } from '../assets/theme/color'
 import styled from 'styled-components';
 import { productsStore } from '../store/product-store';
 
-const Input = styled.div`
-    display: flex;
-    align-items: center;
-    width: 100%;
-    input {
-        margin-right: 9px;
-    }
-`
-
 const FilterInput = ({title, idGoods}) => {
     return (
         <Input>
@@ -23,3 +14,12 @@ const FilterInput = ({title, idGoods}) => {
 }
 
 export default FilterInput
+
+const Input = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    input {
+        margin-right: 9px;
+    }
+`

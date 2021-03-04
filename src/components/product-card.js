@@ -5,6 +5,26 @@ import Image from './image'
 import { color } from '../assets/theme/color'
 import { Text } from '../assets/theme/styled-components'
 
+const ProductCard = ({data}) => {
+    return (
+        <CardStyle width={productCardWidth} bColor={color.border_product_card_color}>
+            {data.is_new && <IsNew><Text size='10px' color={color.white} bold>новинка</Text></IsNew>}
+            <Image imgName='foto' height='242'/>
+            <Content>
+                <Text size="14px" className="title">{data.title}</Text>
+                <div className='price-section'>
+                    <Text size="16px" bold>{data.price.slice(0, -3)} ₽</Text>{/* TODO: У меня не остается времени поставить пробел между цифрами. В этом ниче сложного, я на словах могу накидать как это сделать.
+                        Я бы завел хелпер функцию и через нее пропускал бы занчение helper(data.price)*/}
+                    {data.is_second_hand && <Text size='11px'>Новое</Text>}
+                </div>
+                <PayButton borderColor={color.border_button_color}>В корзину</PayButton>
+            </Content>
+        </CardStyle>
+    )
+}
+
+export default ProductCard
+
 const CardStyle = styled.div`
     position: relative;
     display: flex;
@@ -87,24 +107,4 @@ const PayButton = styled.button`
     cursor: pointer;
     outline: none;
 `
-
-const ProductCard = ({data}) => {
     console.log(data);
-    return (
-        <CardStyle width={productCardWidth} bColor={color.border_product_card_color}>
-            {data.is_new && <IsNew><Text size='10px' color={color.white} bold>новинка</Text></IsNew>}
-            <Image imgName='foto' height='242'/>
-            <Content>
-                <Text size="14px" className="title">{data.title}</Text>
-                <div className='price-section'>
-                    <Text size="16px" bold>{data.price.slice(0, -3)} ₽</Text>{/* TODO: У меня не остается времени поставить пробел между цифрами. В этом ниче сложного, я на словах могу накидать как это сделать.
-                        Я бы завел хелпер функцию и через нее пропускал бы занчение helper(data.price)*/}
-                    {data.is_second_hand && <Text size='11px'>Новое</Text>}
-                </div>
-                <PayButton borderColor={color.border_button_color}>В корзину</PayButton>
-            </Content>
-        </CardStyle>
-    )
-}
-
-export default ProductCard

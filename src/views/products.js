@@ -6,15 +6,6 @@ import ProductCard from '../components/product-card'
 
 export const productCardWidth = 240;
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(${productCardWidth}px, 1fr));
-  grid-gap: 24px;
-  @media screen and (max-width: 578px){
-    grid-gap: 0px;
-  }
-`;
-
 const Products = observer(() => {
     
   useEffect(() => {
@@ -29,3 +20,12 @@ const Products = observer(() => {
 });
 
 export default Products;
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(${productCardWidth}px, 1fr));
+  grid-gap: 24px;
+  @media screen and (max-width: 578px){
+    grid-gap: 0px;
+  }
+`;

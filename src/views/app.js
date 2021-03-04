@@ -9,6 +9,17 @@ import "../assets/css/index.css";
 //
 // Я не считаю зазорным подрубить старый добрый CSS :)
 
+const App = () => {
+  return (
+    <Container>
+      <Form />
+      <Products />
+    </Container>
+  );
+};
+
+export default App;
+
 const Container = styled.div`
   margin: 0 auto;
   width: 100%;
@@ -27,14 +38,3 @@ const Container = styled.div`
     }
   }
 `;
-
-const App = () => {
-  return (
-    <Container>
-      <Form />
-      <Products />
-    </Container>
-  );
-};
-
-export default App;

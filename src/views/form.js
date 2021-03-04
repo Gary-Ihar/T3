@@ -6,24 +6,6 @@ import { observer } from "mobx-react";
 import { productsStore } from "../store/product-store";
 import FilterInput from "../components/filter-input";
 
-const FormStyle = styled.div`
-  width: 100%;
-  max-width: 225px;
-
-  & > p:nth-child(1) {
-    margin-bottom: 5px;
-  }
-  & > p:nth-child(2) {
-    margin-bottom: 13px;
-  }
-  & > p:nth-child(3) {
-    margin-bottom: 13px;
-  }
-  .brand-header {
-    margin-bottom: 13px;
-  }
-`;
-
 const Form = observer(() => {
   return (
     <FormStyle>
@@ -53,3 +35,21 @@ const Form = observer(() => {
 });
 
 export default Form;
+
+const FormStyle = styled.div`
+  width: 100%;
+  max-width: 225px;
+
+  & > p:nth-child(1) {
+    margin-bottom: 5px;
+  }
+  & > p:nth-child(2) {
+    margin-bottom: 13px;
+  }
+  & > p:nth-child(3) {
+    margin-bottom: 13px;
+  }
+  .brand-header {
+    margin-bottom: 13px;
+  }
+`;

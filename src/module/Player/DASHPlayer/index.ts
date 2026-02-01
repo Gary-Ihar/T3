@@ -13,6 +13,10 @@ export class DASHPlayer extends AbstractPlayer {
 
   play(url: string): void {
     if (this.isLoading) return;
+    if (!window.dashjs) {
+      this.logger.log('dash instance is not loaded');
+      return;
+    }
     this.isLoading = true;
     this.dash = window.dashjs.MediaPlayer().create();
     this.dash.initialize(this.videoElement, url, true);

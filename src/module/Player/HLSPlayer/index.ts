@@ -13,6 +13,10 @@ export class HLSPlayer extends AbstractPlayer {
 
   play(url: string): void {
     if (this.isLoading) return;
+    if (!window.Hls) {
+      this.logger.log('hls instance is not loaded');
+      return;
+    }
     this.isLoading = true;
     this.hls = new window.Hls({
       autoStartLoad: true,

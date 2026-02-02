@@ -72,17 +72,26 @@ export class Player {
 
   async load(url: string): Promise<() => Promise<void>> {
     this.simpleClear();
-    if (!url) return Promise.reject(new Error('URL is required'));
+    if (!url) {
+      this.logger.log('URL is required');
+      return Promise.reject(new Error('URL is required'));
+    }
 
     const player = this.getSpecificPlayerByUrl(url);
-    if (!player) return Promise.reject(new Error('Player not found'));
+    if (!player) {
+      this.logger.log('Player not found');
+      return Promise.reject(new Error('Player not found'));
+    }
 
     const playerInstance = player();
 
     this.setCurrentPlayer(playerInstance);
 
     const canPlay = await playerInstance.init(url);
-    if (!canPlay) return Promise.reject(new Error('Player not initialized'));
+    if (!canPlay) {
+      this.logger.log('Player not initialized');
+      return Promise.reject(new Error('Player not initialized'));
+    }
 
     return () =>
       playerInstance.play().catch((error) => {

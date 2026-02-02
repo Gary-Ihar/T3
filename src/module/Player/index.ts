@@ -62,15 +62,24 @@ export class Player {
     this.currentPlayer = undefined;
   }
 
-  load(url: string): void {
+  async load(url: string): Promise<() => Promise<void>> {
     this.simpleClear();
-    if (!url) return;
+    if (!url) return Promise.reject(new Error('URL is required'));
 
     const player = this.getSpecificPlayerByUrl(url);
-    if (!player) return;
+    if (!player) return Promise.reject(new Error('Player not found'));
 
     this.setCurrentPlayer(player);
-    player.play(url);
+
+    const canPlay = await player.init(url);
+    if (!canPlay) return Promise.reject(new Error('Player not initialized'));
+
+    return () =>
+      player.play().catch((error) => {
+        const errorMessage = `Play error: ${JSON.stringify(error)}`;
+        this.logger.log(errorMessage);
+        throw new Error(errorMessage);
+      });
   }
 
   destroy(): void {

@@ -38,5 +38,5 @@ const player = new Player(video, Logger);
 
 select.addEventListener('change', (event) => {
   const target = event.target as HTMLSelectElement;
-  player.load(target.value);
+  player.load(target.value).then((play) => play());
 });

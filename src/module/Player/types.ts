@@ -2,7 +2,8 @@ import { ILogger } from '../../types';
 
 interface IPlayer {
   readonly fileExtensions: string[];
-  play(url: string): void;
+  init(url: string): Promise<boolean>;
+  play(): Promise<void>;
   clear(): void;
 }
 
@@ -12,6 +13,7 @@ export abstract class AbstractPlayer implements IPlayer {
     protected readonly logger: ILogger
   ) {}
   abstract readonly fileExtensions: string[];
-  abstract play(url: string): void;
+  abstract play(): Promise<void>;
+  abstract init(url: string): Promise<boolean>;
   abstract clear(): void;
 }

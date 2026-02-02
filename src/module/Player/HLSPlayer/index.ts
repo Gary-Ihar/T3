@@ -3,39 +3,48 @@ import { AbstractPlayer } from '../types';
 export class HLSPlayer extends AbstractPlayer {
   readonly fileExtensions = ['m3u8'];
   private hls: any;
-  private isLoading = false;
 
-  private initErrorListener(): void {
-    this.hls.on(window.Hls.Events.ERROR, (event: any, data: any) => {
-      this.logger.log(`${JSON.stringify(event)} | ${JSON.stringify(data)}`);
-    });
-  }
-
-  play(url: string): void {
-    if (this.isLoading) return;
+  private hasErrors = () => {
     if (!window.Hls) {
       this.logger.log('hls instance is not loaded');
-      return;
+      return true;
     }
-    this.isLoading = true;
-    this.hls = new window.Hls({
-      autoStartLoad: true,
-    });
-    this.hls.loadSource(url);
-    this.hls.attachMedia(this.videoElement);
-    this.initErrorListener();
-    this.hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
-      this.videoElement.play().catch((error) => {
-        this.logger.log(`Play error: ${JSON.stringify(error)}`);
+    return false;
+  };
+
+  private initHls = async (url: string): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      this.hls = new window.Hls({
+        autoStartLoad: true,
       });
-      this.isLoading = false;
+      this.hls.loadSource(url);
+      this.hls.attachMedia(this.videoElement);
+      let wasStarted = false;
+      this.hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
+        wasStarted = true;
+        resolve(true);
+      });
+      this.hls.on(window.Hls.Events.ERROR, (event: any, data: any) => {
+        this.logger.log(`${JSON.stringify(event)} | ${JSON.stringify(data)}`);
+        if (!wasStarted) {
+          reject(false);
+        }
+      });
     });
-  }
+  };
+
+  init = async (url: string): Promise<boolean> => {
+    if (this.hasErrors()) return false;
+    return await this.initHls(url);
+  };
+
+  play = async (): Promise<void> => {
+    return this.videoElement.play();
+  };
 
   clear(): void {
     this.hls?.destroy();
     this.hls = undefined;
     this.videoElement.src = '';
-    this.isLoading = false;
   }
 }

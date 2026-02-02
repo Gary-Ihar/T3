@@ -1,8 +1,9 @@
 import { AbstractPlayer } from '../types';
 
 export class DASHPlayer extends AbstractPlayer {
-  readonly fileExtensions = ['mpd'];
+  static readonly fileExtensions = ['mpd'];
   private dash: any;
+  private rejectFn: ((reason: Error) => void) | undefined;
 
   private hasErrors = () => {
     if (!window.dashjs) {
@@ -14,6 +15,7 @@ export class DASHPlayer extends AbstractPlayer {
 
   private initDash = async (url: string): Promise<boolean> => {
     return new Promise((resolve, reject) => {
+      this.rejectFn = reject;
       this.dash = window.dashjs.MediaPlayer().create();
       this.dash.initialize(this.videoElement, url, true);
 
@@ -43,6 +45,8 @@ export class DASHPlayer extends AbstractPlayer {
 
   clear(): void {
     this.dash?.destroy();
+    this.rejectFn?.(new Error('Cancelled'));
+    this.rejectFn = undefined;
     this.dash = undefined;
     this.videoElement.src = '';
   }

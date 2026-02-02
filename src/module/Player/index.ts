@@ -6,13 +6,22 @@ import { VideoStateObserver } from './VideoStateObserver';
 import { AbstractPlayer } from './types';
 
 type Extension = string;
-type PlayerMap = Record<Extension, AbstractPlayer>;
+type PlayerMap = Record<Extension, () => AbstractPlayer>;
 type LoggerConstructor = new (key: string) => ILogger;
 
 const PLAYERS = [
-  (video: HTMLVideoElement, Logger: LoggerConstructor) => new BasePlayer(video, new Logger('BasePlayer')),
-  (video: HTMLVideoElement, Logger: LoggerConstructor) => new HLSPlayer(video, new Logger('HLSPlayer')),
-  (video: HTMLVideoElement, Logger: LoggerConstructor) => new DASHPlayer(video, new Logger('DASHPlayer')),
+  {
+    getPlayer: (video: HTMLVideoElement, Logger: LoggerConstructor) => new BasePlayer(video, new Logger('BasePlayer')),
+    class: BasePlayer,
+  },
+  {
+    getPlayer: (video: HTMLVideoElement, Logger: LoggerConstructor) => new HLSPlayer(video, new Logger('HLSPlayer')),
+    class: HLSPlayer,
+  },
+  {
+    getPlayer: (video: HTMLVideoElement, Logger: LoggerConstructor) => new DASHPlayer(video, new Logger('DASHPlayer')),
+    class: DASHPlayer,
+  },
 ];
 
 export class Player {
@@ -31,15 +40,14 @@ export class Player {
     );
 
     this.playerMapByExtension = PLAYERS.reduce<PlayerMap>((acc, player) => {
-      const playerInstance = player(videoElement, Logger);
-      playerInstance.fileExtensions.forEach((extension) => {
-        acc[extension] = playerInstance;
+      player.class.fileExtensions.forEach((extension) => {
+        acc[extension] = () => player.getPlayer(videoElement, Logger);
       });
       return acc;
     }, {});
   }
 
-  private getSpecificPlayerByUrl(url: string): AbstractPlayer | undefined {
+  private getSpecificPlayerByUrl(url: string): (() => AbstractPlayer) | undefined {
     try {
       const urlObject = new URL(url);
       const extension = urlObject.pathname.split('.').pop();
@@ -69,13 +77,15 @@ export class Player {
     const player = this.getSpecificPlayerByUrl(url);
     if (!player) return Promise.reject(new Error('Player not found'));
 
-    this.setCurrentPlayer(player);
+    const playerInstance = player();
 
-    const canPlay = await player.init(url);
+    this.setCurrentPlayer(playerInstance);
+
+    const canPlay = await playerInstance.init(url);
     if (!canPlay) return Promise.reject(new Error('Player not initialized'));
 
     return () =>
-      player.play().catch((error) => {
+      playerInstance.play().catch((error) => {
         const errorMessage = `Play error: ${JSON.stringify(error)}`;
         this.logger.log(errorMessage);
         throw new Error(errorMessage);

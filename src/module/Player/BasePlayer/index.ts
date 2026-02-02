@@ -1,26 +1,29 @@
 import { AbstractPlayer } from '../types';
 
 export class BasePlayer extends AbstractPlayer {
-  readonly fileExtensions = ['mp4'];
+  static readonly fileExtensions = ['mp4'];
+  private rejectFn: ((reason: Error) => void) | undefined;
+  private abortController: AbortController | undefined;
 
   init = async (url: string): Promise<boolean> => {
     return new Promise((resolve, reject) => {
-      const ac = new AbortController();
+      this.rejectFn = reject;
+      this.abortController = new AbortController();
       this.videoElement.addEventListener(
         'canplay',
         () => {
-          ac.abort();
+          this.abortController?.abort();
           resolve(true);
         },
-        { signal: ac.signal }
+        { signal: this.abortController?.signal }
       );
       this.videoElement.addEventListener(
         'error',
         () => {
-          ac.abort();
+          this.abortController?.abort();
           reject(false);
         },
-        { signal: ac.signal }
+        { signal: this.abortController?.signal }
       );
       this.videoElement.src = url;
       this.videoElement.autoplay = true;
@@ -34,5 +37,9 @@ export class BasePlayer extends AbstractPlayer {
   clear(): void {
     this.videoElement.src = '';
     this.videoElement.autoplay = false;
+    this.rejectFn?.(new Error('Cancelled'));
+    this.rejectFn = undefined;
+    this.abortController?.abort();
+    this.abortController = undefined;
   }
 }

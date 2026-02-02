@@ -1,8 +1,9 @@
 import { AbstractPlayer } from '../types';
 
 export class HLSPlayer extends AbstractPlayer {
-  readonly fileExtensions = ['m3u8'];
+  static readonly fileExtensions = ['m3u8'];
   private hls: any;
+  private rejectFn: ((reason: Error) => void) | undefined;
 
   private hasErrors = () => {
     if (!window.Hls) {
@@ -14,6 +15,7 @@ export class HLSPlayer extends AbstractPlayer {
 
   private initHls = async (url: string): Promise<boolean> => {
     return new Promise((resolve, reject) => {
+      this.rejectFn = reject;
       this.hls = new window.Hls({
         autoStartLoad: true,
       });
@@ -44,6 +46,8 @@ export class HLSPlayer extends AbstractPlayer {
 
   clear(): void {
     this.hls?.destroy();
+    this.rejectFn?.(new Error('Cancelled'));
+    this.rejectFn = undefined;
     this.hls = undefined;
     this.videoElement.src = '';
   }

@@ -71,7 +71,7 @@ export class VideoStateObserver {
     this.videoElement.addEventListener(
       'playing',
       () => {
-        if (this.state === PlayerState.BUFFERING) {
+        if (this.bufferingData.end === 0) {
           this.bufferingData.end = performance.now();
           this.onBufferingEnd(this.bufferingData);
         }
@@ -114,6 +114,7 @@ export class VideoStateObserver {
       () => {
         if (this.state !== PlayerState.SEEKING && this.state !== PlayerState.LOADING) {
           this.bufferingData.start = performance.now();
+          this.bufferingData.end = 0;
           this.changeState(PlayerState.BUFFERING);
         }
       },
